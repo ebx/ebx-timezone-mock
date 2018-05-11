@@ -1,77 +1,36 @@
-timezone-mock
-================
+# ebx-timezone-mock
 
-A JavaScript library to mock the local timezone.
+A JavaScript library which mocks the `Date` object and lets you specify a local date/time/timezone in order to enable consistent testing of date/time-related code independently of your local system time settings.
 
-This module is useful for testing that code works correctly when run in
-other timezones, especially those which have Daylight Saving Time if the
-timezone of your test system does not.
+It works by monkey patching the `Date` object and returning results which are adjusted to reflect the effects of both the specified current date/time/timezone (if any) and the current date/time/timezone. In particular, it avoids problems caused by certain JavaScript date/time methods e.g. `getHours` returning results in the user's local system time, so you can write date/time-related unit tests which will work whenever and wherever they are run, without changing timezones causing results to change.
 
-When `register` is called, it replaces the global Date constructor with
-a mocked Date object which behaves as if it is in the specified timezone.
+## Installation
 
-Note: Node v8.0.0 changed how the string "YYYY-MM-DDTHH:MM:SS" is interpreted.
-It was previously interpreted as a UTC date, but now is a local date. If your
-code is using dates of this format, results will be inconsistent.  timezone-mock
-treats them as a local date, so that it behaves consistently with new versions
-of Node, but that means if you run the tests in here on old versions of node,
-or use the mock on old versions of node, the tests may not be accurate (just
-for parsing dates in the aforementioned format).
+### NPM
 
-
-Usage Example
-=============
-
-```javascript
-var assert = require('assert');
-var timezone_mock = require('timezone-mock');
-
-function buggyCode() {
-  // This function is potentially a bug since it's interpreting a string in
-  // the local timezone, which will behave differently depending on which
-  // system it is ran on.
-  return new Date('2015-01-01 12:00:00').getTime();
-}
-var result_local = buggyCode();
-timezone_mock.register('US/Pacific');
-var result_pacific = buggyCode();
-timezone_mock.register('US/Eastern');
-var result_eastern = buggyCode();
-assert.equal(result_local, result_pacific); // Might fail
-assert.equal(result_pacific, result_eastern); // Definitely fails
-
+```sh
+$ npm install ebx-timezone-mock
 ```
 
-API
-===
-* `timezone_mock.register(timezone)` - Replace the global Date object with a mocked one for
-the specified timezone.  Defaults to 'US/Pacific' if no timezone is specified.
-* `timezone_mock.unregister()` - Return to normal Date object behavior
-* `timezone_mock._Date` - access to the original Date object for testing
+## Usage
 
-Supported Timezones
-===================
-Currently supported timezones are:
-* US/Pacific
-* US/Eastern
-* Brazil/East
-* UTC
+### Configuration
 
-I found that testing on these three were enough to ensure code worked in
-all timezones (import factor is to test on a timezone with Daylight Saving
-Time if your local timezone does not).  Brazil/East has the unique characteristic
-of having the DST transition happen right at midnight, so code that sets a Date
-object to midnight on a particular day and then does operations on that Date
-object is especially vulnerable in that timezone.
+```js
+import TimezoneMock from 'TimezoneMock';
 
-Status
-======
+TimezoneMock.set('2018-04-25T12:34:56.000Z');
 
-Most Date member functions are supported except for some conversions to
-locale-specific date strings.
+console.log(new Date()); // Wed Apr 25 2018 12:34:56 GMT+0000 (GMT Standard Time)
 
-With non-DST timezones, it should behave identically to the native Javascript
-Date object.  With DST timezones, it may sometimes behave slightly differently
-when given an ambiguous date string (e.g. "2014-11-02 01:00:00" in "US/Pacific",
-is treated as 1AM PDT instead of 1AM PST - same clock time, utc timestamp off by
-an hour).
+TimezoneMock.reset();
+
+console.log(new Date()); // Current system date/time/timezone
+```
+
+## Credits
+
+The majority of the code for this project was taken from the [timezone-mock](https://github.com/Jimbly/timezone-mock) project by Jimb Esser,
+with some additional code from the [MockDate](https://github.com/boblauer/MockDate) project by Bob Lauer. My contribution has been limited
+to gluing these two projects together, and introduction [moment-timezone](https://github.com/moment/moment-timezone/) to solve the problem
+of working out the timezone offset for any given date, time and place.

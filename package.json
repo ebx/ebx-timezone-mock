@@ -1,26 +1,52 @@
 {
-  "name": "timezone-mock",
-  "version": "1.0.0",
-  "description": "A JavaScript library to mock the local timezone.",
-  "main": "index.js",
+  "name": "ebx-timezone-mock",
+  "version": "1.1.0",
+  "description": "A JavaScript library which mocks the Date object and lets you specify a local date/time/timezone in order to enable consistent testing of date/time-related code independently of your local system time settings.",
+  "main": "src/TimezoneMock.js",
+  "scripts": {
+    "lint": "eslint -c .eslintrc.js --fix \"src/**/*.js\" --max-warnings 0",
+    "test": "node_modules/.bin/babel-tape-runner test/**/*.js",
+    "test:only": "node_modules/.bin/babel-tape-runner"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jimbly/timezone-mock.git"
+    "url": "git+https://github.com/ebx/ebx-timezone-mock.git"
   },
   "keywords": [
-    "timezone",
     "mock",
     "date",
-    "dst",
-    "daylight",
-    "saving",
-    "savings",
-    "time"
+    "time",
+    "timezone"
   ],
   "author": "Jimb Esser (https://github.com/Jimbly/)",
   "license": "MIT",
+  "contributors": [
+    "Andy Neale (https://github.com/ebx) <andy@echobox.com>"
+  ],
   "bugs": {
-    "url": "https://github.com/Jimbly/timezone-mock/issues"
+    "url": "https://github.com/ebx/ebx-timezone-mock/issues"
   },
-  "homepage": "https://github.com/Jimbly/timezone-mock"
+  "homepage": "https://github.com/ebx/ebx-timezone-mock#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "babel-tape-runner": "^2.0.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.7.0",
+    "gulp": "^4.0.0",
+    "gulp-uglify": "^3.0.0",
+    "prettier": "^1.12.1",
+    "run-sequence": "^2.2.1",
+    "tape": "^4.9.0",
+    "tape-catch": "^1.0.6"
+  },
+  "dependencies": {
+    "moment-timezone": "^0.5.16"
+  }
 }
