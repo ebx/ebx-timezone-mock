@@ -9,8 +9,21 @@
 
 **Environment:**
 
-* Build (minify) using Gulp
+* Build (compile) using Gulp / Babel
 * Implement CI via Travis
+
+## 1.1.2
+
+**Fixes:**
+
+* Switched off DEBUG mode
+
+## 1.1.1
+
+**Fixes:**
+
+* Added compiled version of TimezoneMock.js to root folder
+* Updated "main" entry in package.json accordingly
 
 ## 1.1.0
 
