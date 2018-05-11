@@ -10,6 +10,7 @@
 **Environment:**
 
 * Build (minify) using Gulp
+* Implement CI via Travis
 
 ## 1.1.0
 
