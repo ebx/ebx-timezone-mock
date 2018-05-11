@@ -1,6 +1,6 @@
 {
   "name": "ebx-timezone-mock",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A JavaScript library which mocks the Date object and lets you specify a local date/time/timezone in order to enable consistent testing of date/time-related code independently of your local system time settings.",
   "main": "TimezoneMock.js",
   "scripts": {
