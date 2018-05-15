@@ -172,6 +172,8 @@ function _interopRequireWildcard(obj) {
         this.date = new _Date(y, m, d, h, M, s, ms);
         this.fromLocal(new _Date(_Date.UTC.apply(null, arguments)));
     }
+
+    return this;
   }
 
   // Returns the timezone offset for any given date/time in the current timezone
@@ -255,6 +257,8 @@ function _interopRequireWildcard(obj) {
       var date = new _Date(this.date.getTime() - this._tzOffset() * HOUR);
       date['setUTC' + fn.slice(3)].apply(date, arguments);
       this.fromLocal(date);
+
+      return this;
     };
   }
 
