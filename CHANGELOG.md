@@ -12,6 +12,12 @@
 * Build (compile) using Gulp / Babel
 * Implement CI via Travis
 
+## 1.1.4
+
+**Changes:**
+
+* Compiled TimezoneMock.js - mental note, this stuff really needs automating...
+
 ## 1.1.3
 
 **Changes:**
