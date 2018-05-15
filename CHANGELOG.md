@@ -12,6 +12,13 @@
 * Build (compile) using Gulp / Babel
 * Implement CI via Travis
 
+## 1.1.3
+
+**Changes:**
+
+* Added `return this` to constructor and all setter methods to allow chaining
+  of date methods e.g. `const date = new Date().setYear(2018).setMonth(0);`
+
 ## 1.1.2
 
 **Fixes:**
